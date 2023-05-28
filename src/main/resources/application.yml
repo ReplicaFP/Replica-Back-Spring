@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  servlet.context-path: /replica
+  tomcat:
+    max-http-post-size: 100000000
+    max-swallow-size: 100000000
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: replica
+  config:
+    import: optional:configserver:http://localhost:8080
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: docker
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+     ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    properties.hibernate.show_sql: true
+    open-in-view: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  pathsToMatch: /v1/**
+
+com:
+  salesianas:
+    replica:
+      jwtSecret: dam2023
+      jwtExpirationMs: 86400000
+
+
+
